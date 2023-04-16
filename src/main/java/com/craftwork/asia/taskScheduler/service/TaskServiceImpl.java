@@ -131,11 +131,11 @@ public class TaskServiceImpl implements TaskService{
 		
 		taskEntity.setPriority(priority.getPriority());
 		
-		
 		return saveTask(tempTask.getBody());
 	}
 	
-	@Scheduled(fixedDelay = 23000)
+	// Inserts a Task record at random intervals between 1 to 15 seconds
+	@Scheduled(fixedDelayString = "#{new Double(((T(Math).random() * (15 - 1) + 1))*1000).intValue()}")
 	private void taskSchedule() {
 		
 		TaskEntity taskEntity = new TaskEntity();
