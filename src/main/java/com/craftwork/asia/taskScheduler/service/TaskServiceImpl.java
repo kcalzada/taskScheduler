@@ -151,7 +151,6 @@ public class TaskServiceImpl implements TaskService{
 		taskEntity.setDescription(description);
 		taskEntity.setPriority(priority);
 		taskEntity = saveTask(taskEntity).getBody();
-	
 		
 		System.out.println("Inserted Task ID: "+taskEntity.getId()+" At "+taskEntity.getCreatedAt()+" with priority: "+taskEntity.getPriority());
 	}
