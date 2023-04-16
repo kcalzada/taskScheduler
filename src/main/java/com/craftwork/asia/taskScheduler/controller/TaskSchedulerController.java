@@ -56,7 +56,7 @@ public class TaskSchedulerController {
 	
 	@PutMapping(value="/update/priority/{id}")
 	public ResponseEntity<TaskEntity> updateTaskPriority(@PathVariable int id, @RequestParam int priority) {
-
+		
 		return taskService.updateTaskPriority(id,priority);
 	}
 	

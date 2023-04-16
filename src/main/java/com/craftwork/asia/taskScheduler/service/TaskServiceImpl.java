@@ -8,9 +8,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
-import org.springframework.http.ResponseEntity.BodyBuilder;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
@@ -27,11 +25,6 @@ public class TaskServiceImpl implements TaskService{
 
 	@Override
 	public ResponseEntity<TaskEntity> saveTask(TaskEntity task) {
-		
-		if(CreateAtandDueDateFieldValidation(task)) {	
-			
-			return new ResponseEntity<TaskEntity>(HttpStatus.BAD_REQUEST);
-		}
 		
 		if(NullChecking(task)) {
 			return new ResponseEntity<TaskEntity>(HttpStatus.BAD_REQUEST);
@@ -106,12 +99,13 @@ public class TaskServiceImpl implements TaskService{
 		if(Status.Done.equals(st)) {
 			tempTask.getBody().setResolvedAt(getCurrentDate());
 		}
+		else {
+			tempTask.getBody().setResolvedAt(null);
+		}
 		
 		tempTask.getBody().setStatus(st.getStatus());
 		
-		saveTask(tempTask.getBody());
-		
-		return tempTask;
+		return saveTask(tempTask.getBody());
 	}
 	
 	@Override
@@ -133,11 +127,12 @@ public class TaskServiceImpl implements TaskService{
 			return new ResponseEntity<TaskEntity>(HttpStatus.CONFLICT);
 		}
 		
-		tempTask.getBody().setPriority(priority.getPriority());
+		TaskEntity taskEntity = tempTask.getBody();
 		
-		saveTask(tempTask.getBody());
+		taskEntity.setPriority(priority.getPriority());
 		
-		return tempTask;
+		
+		return saveTask(tempTask.getBody());
 	}
 	
 	@Scheduled(fixedDelay = 23000)
@@ -173,18 +168,6 @@ public class TaskServiceImpl implements TaskService{
 		Date dueDate = Date.from(now.atZone(ZoneId.systemDefault()).toInstant());
 		
 		return dueDate;
-	}
-	
-	private boolean CreateAtandDueDateFieldValidation(TaskEntity task) {
-		if(task.getCreatedAt() != null) {			
-			return true;
-		}
-		
-		if(task.getUpdatedAt() != null) {
-			return true;
-		}
-		
-		return false;
 	}
 	
 	private boolean NullChecking(TaskEntity task) {
