@@ -154,9 +154,9 @@ public class TaskServiceImpl implements TaskService{
 		taskEntity.setTitle(title);
 		taskEntity.setDescription(description);
 		
-		saveTask(taskEntity);
+		taskEntity = saveTask(taskEntity).getBody();
 		
-		System.out.println(getCurrentDate());
+		System.out.println("Inserted Task ID: "+taskEntity.getId()+" At "+taskEntity.getCreatedAt());
 	}
 	
 	private Date getDueDate() {
