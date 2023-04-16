@@ -1,8 +1,8 @@
 com\craftwork\asia\taskScheduler\service\TaskServiceImpl.class
+com\craftwork\asia\taskScheduler\service\TaskService.class
+com\craftwork\asia\taskScheduler\AppEnums\Priority.class
+com\craftwork\asia\taskScheduler\AppEnums\Status.class
 com\craftwork\asia\taskScheduler\controller\TaskSchedulerController.class
 com\craftwork\asia\taskScheduler\TaskSchedulerApplication.class
 com\craftwork\asia\taskScheduler\entity\TaskEntity.class
-com\craftwork\asia\taskScheduler\service\TaskService.class
 com\craftwork\asia\taskScheduler\repository\TaskRepository.class
-com\craftwork\asia\taskScheduler\AppEnums\Priority.class
-com\craftwork\asia\taskScheduler\AppEnums\Status.class
