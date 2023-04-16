@@ -5,6 +5,7 @@ import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -135,23 +136,24 @@ public class TaskServiceImpl implements TaskService{
 	}
 	
 	// Inserts a Task record at random intervals between 1 to 15 seconds
-	@Scheduled(fixedDelayString = "#{new Double(((T(Math).random() * (15 - 1) + 1))*1000).intValue()}")
+	@Scheduled(fixedDelayString = "#{(new java.util.Random().nextInt(10))*1000}")
 	private void taskSchedule() {
 		
 		TaskEntity taskEntity = new TaskEntity();
 		
 		Date now = getDueDate();
-		
 		String title = "Title from "+now.toString();
 		String description = "description from "+now.toString();
+		int priority = new Random().nextInt(3);
 		
 		taskEntity.setDueDate(now);
 		taskEntity.setTitle(title);
 		taskEntity.setDescription(description);
-		
+		taskEntity.setPriority(priority);
 		taskEntity = saveTask(taskEntity).getBody();
+	
 		
-		System.out.println("Inserted Task ID: "+taskEntity.getId()+" At "+taskEntity.getCreatedAt());
+		System.out.println("Inserted Task ID: "+taskEntity.getId()+" At "+taskEntity.getCreatedAt()+" with priority: "+taskEntity.getPriority());
 	}
 	
 	private Date getDueDate() {
