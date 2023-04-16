@@ -163,7 +163,7 @@ public class TaskServiceImpl implements TaskService{
 	}
 	
 	private Date getCurrentDate() {
-		LocalDateTime now = LocalDateTime.now().plusDays(3);
+		LocalDateTime now = LocalDateTime.now();
 		
 		Date dueDate = Date.from(now.atZone(ZoneId.systemDefault()).toInstant());
 		
