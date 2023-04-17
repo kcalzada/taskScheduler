@@ -135,7 +135,7 @@ public class TaskServiceImpl implements TaskService{
 		return saveTask(tempTask.getBody());
 	}
 	
-	// Inserts a Task record at random intervals between 1 to 15 seconds
+	// Inserts a Task record at random intervals between 1 to 10 seconds
 	@Scheduled(fixedDelayString = "#{(new java.util.Random().nextInt(10))*1000}")
 	private void taskSchedule() {
 		
